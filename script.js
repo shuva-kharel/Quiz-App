@@ -9,6 +9,16 @@ const resultBox = document.querySelector('.result-box');
 const tryAgainBtn = document.querySelector('.tryAgain-btn');
 const goHomeBtn = document.querySelector('.goHome-btn');
 
+// catogery buttons
+const scienceCatogeryBtn = document.querySelector('.science-cat');
+const mathsCatogeryBtn = document.querySelector('.maths-cat');
+const englishCatogeryBtn = document.querySelector('.english-cat');
+const generalCatogeryBtn = document.querySelector('.general-cat');
+const physicsCatogeryBtn = document.querySelector('.physics-cat');
+const rapidCatogeryBtn = document.querySelector('.rapid-cat');
+const computerCatogeryBtn = document.querySelector('.computer-cat');
+
+
 startBtn.onclick = () => {
     popupInfo.classList.add('active');
     main.classList.add('active');
@@ -59,6 +69,60 @@ goHomeBtn.onclick = () => {
 
     headerScore();
 }
+
+// Catogery Buttons
+scienceCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    scienceCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+mathsCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    mathsCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+englishCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    englishCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+generalCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    generalCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+physicsCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    physicsCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+rapidCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    rapidCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+computerCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    computerCatogeryBtn.classList.add('active');
+    continueBtn.classList.add('active');
+}
+
+function clearCatogeryActiveBtn(){
+    scienceCatogeryBtn.classList.remove('active');
+    mathsCatogeryBtn.classList.remove('active');
+    englishCatogeryBtn.classList.remove('active');
+    generalCatogeryBtn.classList.remove('active');
+    physicsCatogeryBtn.classList.remove('active');
+    rapidCatogeryBtn.classList.remove('active');
+    computerCatogeryBtn.classList.remove('active');
+}
+
 
 let questionCount = 0;
 let questionNumb = 1;
