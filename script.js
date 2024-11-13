@@ -35,27 +35,34 @@ continueBtn.onclick = () => {
     main.classList.remove('active');
     quizBox.classList.add('active');
 
-    showQuestions(0);
+    startQuiz();
     questionCounter(1);
     headerScore();
 }
 
 tryAgainBtn.onclick = () => {
+    // Reset variables
+    clearCatogeryActiveBtn();
+    quizQuestions = getRandomQuestions(selectedCategory);  // Reinitialize quizQuestions with new random questions
+
+    // Reset UI
     quizBox.classList.add('active');
     nextBtn.classList.remove('active');
     resultBox.classList.remove('active');
-    
-    questionCount = 0;
+
+    questionCount = 0;  // Start from the first question
     questionNumb = 1;
     userScore = 0;
 
-    showQuestions(questionCount);
-    questionCounter(questionNumb);
-
-    headerScore();
+    showQuestions(questionCount, quizQuestions);  // Show the first question of the newly generated quizQuestions
+    questionCounter(questionNumb);  // Update the question counter
+    headerScore();  // Update the score header
 }
 
+
+
 goHomeBtn.onclick = () => {
+    selectedCategory = '';  // Clear selected category, allowing the user to select a new one
     quizSection.classList.remove('active');
     nextBtn.classList.remove('active');
     resultBox.classList.remove('active');
@@ -64,53 +71,62 @@ goHomeBtn.onclick = () => {
     questionNumb = 1;
     userScore = 0;
 
-    showQuestions(questionCount);
-    questionCounter(questionNumb);
-
-    headerScore();
+    // Reset quiz (you might want to trigger category selection again)
+    // showCategorySelection();  // Optionally, show category selection screen
 }
+
+
+
+let selectedCategory = '';
 
 // Catogery Buttons
 scienceCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     scienceCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'science';
 }
 
 mathsCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     mathsCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'maths';
 }
 
 englishCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     englishCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'english';
 }
 
 generalCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     generalCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'general';
 }
 
 physicsCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     physicsCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'physics';
 }
 
 rapidCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     rapidCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'rapid';
 }
 
 computerCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     computerCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
+    selectedCategory = 'computer';
 }
 
 function clearCatogeryActiveBtn(){
@@ -131,90 +147,138 @@ let userScore = 0;
 const nextBtn = document.querySelector('.next-btn');
 
 nextBtn.onclick = () => {
-    if(questionCount < questions.length - 1){
+    if (questionCount < quizQuestions.length - 1) {
         questionCount++;
-        showQuestions(questionCount);
-
-        questionNumb++;
-        questionCounter(questionNumb);
-
+        showQuestions(questionCount, quizQuestions);  // Display the next question
+        questionNumb++;  // Increment the question number
+        questionCounter(questionNumb);  // Update the question counter
+        nextBtn.classList.remove('active');  // Hide the "Next" button until a question is answered
+    } else {
         nextBtn.classList.remove('active');
+        showResultBox();  // Show the results when all questions are answered
     }
-    else{
-        nextBtn.classList.remove('active');
-        showResultBox();
-    }
-
 }
+
 
 const optionList = document.querySelector('.option-list');
 
-function showQuestions(index){
-    const questionText = document.querySelector('.question-text');
-    questionText.textContent = `${questions[index].numb}. ${questions[index].question}`;
+function showQuestions(index, quizQuestions) {
+    if (!quizQuestions || quizQuestions.length === 0) {
+        console.error('Quiz questions are undefined or empty.');
+        return;
+    }
 
-    let optionTag = `<div class="option"><span>${questions[index].options[0]}</span></div>
-    <div class="option"><span>${questions[index].options[1]}</span></div>
-    <div class="option"><span>${questions[index].options[2]}</span></div>
-    <div class="option"><span>${questions[index].options[3]}</span></div>`;
+    console.log(`Showing question ${index + 1} out of ${quizQuestions.length}`);
+
+    const questionText = document.querySelector('.question-text');
+    questionText.textContent = `${index + 1}. ${quizQuestions[index].question}`;
+
+    let optionTag = `<div class="option"><span>${quizQuestions[index].options[0]}</span></div>
+        <div class="option"><span>${quizQuestions[index].options[1]}</span></div>
+        <div class="option"><span>${quizQuestions[index].options[2]}</span></div>
+        <div class="option"><span>${quizQuestions[index].options[3]}</span></div>`;
 
     optionList.innerHTML = optionTag;
 
     const option = document.querySelectorAll('.option');
-    for(let i = 0; i < option.length; i++){
-        option[i].setAttribute('onclick', 'optionSelected(this)');
-
-    }
+    option.forEach(opt => {
+        opt.addEventListener('click', function () {
+            optionSelected(this, quizQuestions, index);
+        });
+    });
 }
 
-function optionSelected(answer){
+
+
+
+
+
+function optionSelected(answer, quizQuestions, index) {
     let userAnswer = answer.textContent;
-    let correctAnswer = questions[questionCount].answer;
+    let correctAnswer = quizQuestions[index].answer;  // Use the passed quizQuestions and index
     let allOptions = optionList.children.length;
 
-    if(userAnswer == correctAnswer){
+    if(userAnswer == correctAnswer) {
         answer.classList.add('correct');
         userScore += 1;
         headerScore();
-    }
-    else{
+    } else {
         answer.classList.add('incorrect');
-
-        for(let i = 0; i < allOptions; i++){
-            if(optionList.children[i].textContent== correctAnswer){
+        for(let i = 0; i < allOptions; i++) {
+            if(optionList.children[i].textContent == correctAnswer) {
                 optionList.children[i].setAttribute('class', 'option correct');
             }
         }
     }
 
-    for(let i = 0; i < allOptions; i++){
+    for(let i = 0; i < allOptions; i++) {
         optionList.children[i].classList.add('disable');
     }
 
     nextBtn.classList.add('active');
 }
 
+
+function getRandomQuestions(category) {
+    const allQuestions = questions[category];
+    const selectedQuestions = [];
+
+    if (!allQuestions || allQuestions.length === 0) {
+        console.error(`No questions found for category: ${category}`);
+        return [];  // Return an empty array if no questions are found
+    }
+
+    const numberOfQuestions = Math.min(5, allQuestions.length);  // Limit to 5 questions
+    while (selectedQuestions.length < numberOfQuestions) {
+        const randomIndex = Math.floor(Math.random() * allQuestions.length);
+        const question = allQuestions[randomIndex];
+        if (!selectedQuestions.includes(question)) {
+            selectedQuestions.push(question);
+        }
+    }
+
+    return selectedQuestions;
+}
+
+
+
+
+let quizQuestions = [];  // Define quizQuestions globally
+
+function startQuiz() {
+    quizQuestions = getRandomQuestions(selectedCategory);  // Assign random questions when starting the quiz
+    showQuestions(0, quizQuestions);  // Show the first question
+    questionCounter(1);  // Start with question 1
+    headerScore();  // Update the score header
+}
+
+
+
+
 function questionCounter(index){
     const questionTotal = document.querySelector('.question-total');
-    questionTotal.textContent = `${index} of ${questions.length} Questions`;
+    questionTotal.textContent = `${index} of ${quizQuestions.length} Questions`;  // Correct
 }
+
 
 function headerScore(){
     const headerScoreText = document.querySelector('.header-score');
-    headerScoreText.textContent = `Score: ${userScore} / ${questions.length}`;
+    // Use quizQuestions.length to get the total number of questions
+    headerScoreText.textContent = `Score: ${userScore} / ${quizQuestions.length}`;
 }
+
 
 function showResultBox(){
     quizBox.classList.remove('active');
     resultBox.classList.add('active');
 
     const scoreText = document.querySelector('.score-text');
-    scoreText.textContent = `Score ${userScore} out of ${questions.length}`;
+    scoreText.textContent = `Score ${userScore} out of ${quizQuestions.length}`;  // Use quizQuestions.length instead of questions.length
 
     const circularProgress = document.querySelector('.circular-progress');
     const progressValue = document.querySelector('.progress-value');
     let progressStartValue = -1;
-    let progressEndValue = (userScore / questions.length) * 100;
+    let progressEndValue = (userScore / quizQuestions.length) * 100;  // Use quizQuestions.length instead of questions.length
     let speed = 10;
 
     let progress = setInterval(() => {
