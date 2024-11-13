@@ -1,0 +1,6 @@
+REQUIREMENTS:
+Splash Screen
+User Input Name
+3D Box Neons
+Mono-Cursive Callibaria
+Dark Theme

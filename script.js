@@ -9,15 +9,16 @@ const resultBox = document.querySelector('.result-box');
 const tryAgainBtn = document.querySelector('.tryAgain-btn');
 const goHomeBtn = document.querySelector('.goHome-btn');
 
+const noOfQuestions = 10;
+
 // catogery buttons
 const scienceCatogeryBtn = document.querySelector('.science-cat');
 const mathsCatogeryBtn = document.querySelector('.maths-cat');
 const englishCatogeryBtn = document.querySelector('.english-cat');
 const generalCatogeryBtn = document.querySelector('.general-cat');
 const physicsCatogeryBtn = document.querySelector('.physics-cat');
-const rapidCatogeryBtn = document.querySelector('.rapid-cat');
 const computerCatogeryBtn = document.querySelector('.computer-cat');
-
+const rapidCatogeryBtn = document.querySelector('.rapid-cat');
 
 startBtn.onclick = () => {
     popupInfo.classList.add('active');
@@ -41,25 +42,29 @@ continueBtn.onclick = () => {
 }
 
 tryAgainBtn.onclick = () => {
-    // Reset variables
-    clearCatogeryActiveBtn();
-    quizQuestions = getRandomQuestions(selectedCategory);  // Reinitialize quizQuestions with new random questions
+    window.requestAnimationFrame(() => {
+        clearCatogeryActiveBtn();
+        quizBox.classList.add('active');
+        nextBtn.classList.remove('active');
+        resultBox.classList.remove('active');
+        
+        // Reset variables
+        questionCount = 0;
+        questionNumb = 1;
+        userScore = 0;
 
-    // Reset UI
-    quizBox.classList.add('active');
-    nextBtn.classList.remove('active');
-    resultBox.classList.remove('active');
+        // Reset options and clear previous question content
+        optionList.innerHTML = '';
 
-    questionCount = 0;  // Start from the first question
-    questionNumb = 1;
-    userScore = 0;
-
-    showQuestions(questionCount, quizQuestions);  // Show the first question of the newly generated quizQuestions
-    questionCounter(questionNumb);  // Update the question counter
-    headerScore();  // Update the score header
-}
-
-
+        // Generate the new set of questions for the selected category
+        quizQuestions = getRandomQuestions(selectedCategory);
+        
+        // Display first question
+        showQuestions(questionCount, quizQuestions);  
+        questionCounter(questionNumb);
+        headerScore();
+    });
+};
 
 goHomeBtn.onclick = () => {
     selectedCategory = '';  // Clear selected category, allowing the user to select a new one
@@ -74,8 +79,6 @@ goHomeBtn.onclick = () => {
     // Reset quiz (you might want to trigger category selection again)
     // showCategorySelection();  // Optionally, show category selection screen
 }
-
-
 
 let selectedCategory = '';
 
@@ -115,18 +118,18 @@ physicsCatogeryBtn.onclick = () =>{
     selectedCategory = 'physics';
 }
 
-rapidCatogeryBtn.onclick = () =>{
-    clearCatogeryActiveBtn();
-    rapidCatogeryBtn.classList.add('active');
-    continueBtn.classList.add('active');
-    selectedCategory = 'rapid';
-}
-
 computerCatogeryBtn.onclick = () =>{
     clearCatogeryActiveBtn();
     computerCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'computer';
+}
+
+rapidCatogeryBtn.onclick = () =>{
+    clearCatogeryActiveBtn();
+    rapidCatogeryBtn.classList.add('rapid-active');
+    continueBtn.classList.add('rapid-active');
+    selectedCategory = 'rapid';
 }
 
 function clearCatogeryActiveBtn(){
@@ -135,8 +138,9 @@ function clearCatogeryActiveBtn(){
     englishCatogeryBtn.classList.remove('active');
     generalCatogeryBtn.classList.remove('active');
     physicsCatogeryBtn.classList.remove('active');
-    rapidCatogeryBtn.classList.remove('active');
     computerCatogeryBtn.classList.remove('active');
+    rapidCatogeryBtn.classList.remove('rapid-active');
+    continueBtn.classList.remove('rapid-active');
 }
 
 
@@ -173,12 +177,12 @@ function showQuestions(index, quizQuestions) {
     const questionText = document.querySelector('.question-text');
     questionText.textContent = `${index + 1}. ${quizQuestions[index].question}`;
 
-    let optionTag = `<div class="option"><span>${quizQuestions[index].options[0]}</span></div>
-        <div class="option"><span>${quizQuestions[index].options[1]}</span></div>
-        <div class="option"><span>${quizQuestions[index].options[2]}</span></div>
-        <div class="option"><span>${quizQuestions[index].options[3]}</span></div>`;
+    let optionTag = '';
+    quizQuestions[index].options.forEach(option => {
+        optionTag += `<div class="option"><span>${option}</span></div>`;
+    });
 
-    optionList.innerHTML = optionTag;
+    optionList.innerHTML = optionTag;  // Update only the options, minimizing DOM operations
 
     const option = document.querySelectorAll('.option');
     option.forEach(opt => {
@@ -187,11 +191,6 @@ function showQuestions(index, quizQuestions) {
         });
     });
 }
-
-
-
-
-
 
 function optionSelected(answer, quizQuestions, index) {
     let userAnswer = answer.textContent;
@@ -218,7 +217,6 @@ function optionSelected(answer, quizQuestions, index) {
     nextBtn.classList.add('active');
 }
 
-
 function getRandomQuestions(category) {
     const allQuestions = questions[category];
     const selectedQuestions = [];
@@ -228,7 +226,7 @@ function getRandomQuestions(category) {
         return [];  // Return an empty array if no questions are found
     }
 
-    const numberOfQuestions = Math.min(5, allQuestions.length);  // Limit to 5 questions
+    const numberOfQuestions = Math.min(noOfQuestions, allQuestions.length);  // Limit to 5 questions
     while (selectedQuestions.length < numberOfQuestions) {
         const randomIndex = Math.floor(Math.random() * allQuestions.length);
         const question = allQuestions[randomIndex];
@@ -240,9 +238,6 @@ function getRandomQuestions(category) {
     return selectedQuestions;
 }
 
-
-
-
 let quizQuestions = [];  // Define quizQuestions globally
 
 function startQuiz() {
@@ -252,21 +247,16 @@ function startQuiz() {
     headerScore();  // Update the score header
 }
 
-
-
-
 function questionCounter(index){
     const questionTotal = document.querySelector('.question-total');
     questionTotal.textContent = `${index} of ${quizQuestions.length} Questions`;  // Correct
 }
-
 
 function headerScore(){
     const headerScoreText = document.querySelector('.header-score');
     // Use quizQuestions.length to get the total number of questions
     headerScoreText.textContent = `Score: ${userScore} / ${quizQuestions.length}`;
 }
-
 
 function showResultBox(){
     quizBox.classList.remove('active');
