@@ -100,7 +100,8 @@ body{
     flex-direction: column;
 }
 
-.home-content h1{
+.home-content p{
+    text-align: center;
     color: #fff;
     font-size: 78px;
     font-weight: 700;
@@ -117,7 +118,7 @@ body{
     outline: none;
     border-radius: 6px;
     box-shadow: 0 0 10px rgb(18, 153, 194);
-    font-size: 18px;
+    font-size: 30px;
     color: #fff;
     letter-spacing: 1px;
     font-weight: 600;
@@ -268,7 +269,7 @@ body{
     position: relative;
     left: -50%;
     width: 100%;
-    background: linear-gradient(45deg, rgb(0, 80, 94), white);
+    background: linear-gradient(45deg,  #000047, rgb(48, 1, 48));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -286,7 +287,7 @@ body{
     position: relative;
     width: 500px;
     background: transparent;
-    border: 2px solid wheat;
+    border: 2px solid blueviolet;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -299,7 +300,7 @@ body{
 }
 
 .quiz-section .quiz-box.active{
-    background: linear-gradient(45deg, rgb(41, 120, 194), rgb(0, 80, 94));
+    background: black;
     opacity: 100;
     pointer-events: auto;
     transform: scale(1);
@@ -310,7 +311,7 @@ body{
 .quiz-box h1{
     font-size: 32px;
     text-align: center;
-    background: linear-gradient(45deg, transparent, wheat, transparent);
+    background: linear-gradient(45deg, rgb(48, 1, 48), #000047);
     border-radius: 6px;
 }
 
@@ -329,7 +330,7 @@ body{
 }
 
 .quiz-header .header-score{
-    background: wheat;
+    background: linear-gradient(135deg, rgb(48, 1, 48), #000047);;
     border-radius: 3px;
     padding: 7px;
 }
@@ -343,7 +344,7 @@ body{
     width: 100%;
     padding: 12px;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid blueviolet;
     border-radius: 4px;
     font-size: 17px;
     margin: 15px 0;
@@ -376,7 +377,7 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 2px solid wheat;
+    border-top: 2px solid blueviolet;
     padding-top: 20px;
     margin-top: 25px;
 }
@@ -403,14 +404,12 @@ body{
 
 .quiz-footer .next-btn.active{
     pointer-events: auto;
-    background: wheat;
-    border-color: wheat;
+    background: rgb(47, 255, 47);
     color: #fff;
 }
 
 .quiz-box .next-btn.active:hover{
-    background: rgb(255, 187, 0);
-    border-color: rgb(255, 187, 0);
+    background: rgb(47, 255, 47);
 }
 
 .quiz-section .result-box{
