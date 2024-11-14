@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 
 *{
     margin: 0;
     padding: 0;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Sour Gummy", sans-serif;
     box-sizing: border-box;
     text-decoration: none;
 }
@@ -27,11 +27,16 @@ body{
     z-index: 100;
 }
 
-.logo{
+.header img{
+    margin-left: -100px;
+    height: 150px;
+    width: 150px;
+}
+
+.header .logo{
     font-size: 32px;
-    color: wheat;
     font-weight: 700;
-    filter: drop-shadow(0 0 5px black);
+    filter: drop-shadow(0 0 5px white) brightness(5);
 }
 
 .navbar a{
@@ -49,10 +54,22 @@ body{
 
 .main{
     min-height: 100vh;
-    background: url('main_background01.jpg') no-repeat;
+    background: url('background.jpeg') no-repeat;
     background-size: cover;
     background-position: center;
     pointer-events: auto;
+    transition: 500ms ease;
+}
+
+.main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+    pointer-events: none; /* Allows interaction with the content below */
     transition: 500ms ease;
 }
 
@@ -84,16 +101,18 @@ body{
 }
 
 .home-content h1{
+    color: #fff;
     font-size: 78px;
     font-weight: 700;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0, 0.3);
 }
 
 .home-content .start-btn{
+    margin-top: 20px;
     transition: 500ms;
     width: 190px;
     height: 55px;
-    background: rgb(18, 153, 194);
+    background: #2b9348;
     border: 2px solid #fff;
     outline: none;
     border-radius: 6px;
@@ -131,8 +150,8 @@ body{
 }
 
 .popup-info  h2{
-    font-size: 50px;
-    color: wheat;
+    font-size: 40px;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -143,13 +162,13 @@ body{
     align-items: center;
     width: 130px;
     height: 45px;
-    background-color: wheat;
-    border: 2px solid wheat;
+    background-color: #ccc9dc;
+    border: 2px solid #ccc9dc;
     outline: none;
     border-radius: 6px;
     text-decoration: none;
     font-size: 16px;
-    color: #fff;
+    color: black;
     font-weight: 600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0, 0.1);
     cursor: pointer;
@@ -157,14 +176,16 @@ body{
 }
 
 .popup-info .active{
-    background:  rgba(255, 187, 0, 0.7);
-    border-color:  rgba(255, 187, 0, 0.7);
+    background:  #332b63;
+    border-color:  #332b63;
+    color: #fff;
     transition: 500ms ease;
 }
 
 .popup-info .info:hover{
-    background:  rgba(255, 187, 0, 0.7);
-    border-color:  rgba(255, 187, 0, 0.7);
+    background:  #332b63;
+    border-color:  #332b63;
+    color: #fff;
     transition: 500ms ease;
 }
 
@@ -203,20 +224,25 @@ body{
     width: 130px;
     height: 45px;
     background-color: transparent;
-    border: 2px solid wheat;
+    border: 2px solid black;
     outline: none;
     border-radius: 6px;
     text-decoration: none;
     font-size: 16px;
-    color: wheat;
+    color: black;
     font-weight: 600;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0, 0.1);
     cursor: pointer;
 }
 
+.popup-info .btn-group .exit-btn{
+    border: 2px solid black;
+    color: #cf0d0d;
+}
+
 .popup-info .btn-group .exit-btn:hover{
-    background:  rgba(255, 187, 0, 0.7);
-    border-color:  rgba(255, 187, 0, 0.7);
+    background:  #cf0d0d;
+    border-color:  #cf0d0d;
     color: #fff;
 }
 
@@ -226,8 +252,8 @@ body{
 
 .popup-info .btn-group .continue-btn.active{
     pointer-events: auto;
-    background:  rgba(255, 187, 0, 0.7);
-    border-color:  rgba(255, 187, 0, 0.7);
+    background:  #70e000;
+    border-color:  #70e000;
     color: #fff;
 }
 
@@ -242,7 +268,7 @@ body{
     position: relative;
     left: -50%;
     width: 100%;
-    background: rgb(10, 0, 68);
+    background: linear-gradient(45deg, rgb(0, 80, 94), white);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -273,6 +299,7 @@ body{
 }
 
 .quiz-section .quiz-box.active{
+    background: linear-gradient(45deg, rgb(41, 120, 194), rgb(0, 80, 94));
     opacity: 100;
     pointer-events: auto;
     transform: scale(1);
