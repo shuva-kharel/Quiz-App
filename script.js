@@ -83,54 +83,62 @@ goHomeBtn.onclick = () => {
 let selectedCategory = '';
 
 // Catogery Buttons
-scienceCatogeryBtn.onclick = () =>{
+scienceCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     scienceCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'science';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
 
-mathsCatogeryBtn.onclick = () =>{
+mathsCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     mathsCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'maths';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
 
-englishCatogeryBtn.onclick = () =>{
+englishCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     englishCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'english';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
 
-generalCatogeryBtn.onclick = () =>{
+generalCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     generalCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'general';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
 
-physicsCatogeryBtn.onclick = () =>{
+physicsCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     physicsCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'physics';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
 
-computerCatogeryBtn.onclick = () =>{
+computerCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     computerCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'computer';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
 
-rapidCatogeryBtn.onclick = () =>{
+rapidCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     rapidCatogeryBtn.classList.add('rapid-active');
     continueBtn.classList.add('rapid-active');
     selectedCategory = 'rapid';
+    updateCategoryDisplay();  // Update the displayed category in the h1 tag
 }
+
 
 function clearCatogeryActiveBtn(){
     scienceCatogeryBtn.classList.remove('active');
@@ -142,6 +150,12 @@ function clearCatogeryActiveBtn(){
     rapidCatogeryBtn.classList.remove('rapid-active');
     continueBtn.classList.remove('rapid-active');
 }
+
+function updateCategoryDisplay() {
+    const categoryDisplay = document.querySelector('.quiz-category');
+    categoryDisplay.textContent = `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}`;
+}
+
 
 
 let questionCount = 0;
