@@ -9,7 +9,7 @@ const resultBox = document.querySelector('.result-box');
 const tryAgainBtn = document.querySelector('.tryAgain-btn');
 const goHomeBtn = document.querySelector('.goHome-btn');
 
-const noOfQuestions = 10;
+const noOfQuestions = 5;
 
 // catogery buttons
 const scienceCatogeryBtn = document.querySelector('.science-cat');
@@ -47,37 +47,30 @@ tryAgainBtn.onclick = () => {
         quizBox.classList.add('active');
         nextBtn.classList.remove('active');
         resultBox.classList.remove('active');
-        
-        // Reset variables
+
         questionCount = 0;
         questionNumb = 1;
         userScore = 0;
 
-        // Reset options and clear previous question content
         optionList.innerHTML = '';
 
-        // Generate the new set of questions for the selected category
         quizQuestions = getRandomQuestions(selectedCategory);
-        
-        // Display first question
-        showQuestions(questionCount, quizQuestions);  
+
+        showQuestions(questionCount, quizQuestions);
         questionCounter(questionNumb);
         headerScore();
     });
 };
 
 goHomeBtn.onclick = () => {
-    selectedCategory = '';  // Clear selected category, allowing the user to select a new one
+    selectedCategory = '';
     quizSection.classList.remove('active');
     nextBtn.classList.remove('active');
     resultBox.classList.remove('active');
-    
+
     questionCount = 0;
     questionNumb = 1;
     userScore = 0;
-
-    // Reset quiz (you might want to trigger category selection again)
-    // showCategorySelection();  // Optionally, show category selection screen
 }
 
 let selectedCategory = '';
@@ -88,7 +81,7 @@ scienceCatogeryBtn.onclick = () => {
     scienceCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'science';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    updateCategoryDisplay();
 }
 
 mathsCatogeryBtn.onclick = () => {
@@ -96,7 +89,7 @@ mathsCatogeryBtn.onclick = () => {
     mathsCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'maths';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    updateCategoryDisplay();
 }
 
 englishCatogeryBtn.onclick = () => {
@@ -104,7 +97,7 @@ englishCatogeryBtn.onclick = () => {
     englishCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'english';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    updateCategoryDisplay();
 }
 
 generalCatogeryBtn.onclick = () => {
@@ -112,7 +105,7 @@ generalCatogeryBtn.onclick = () => {
     generalCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'general';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    updateCategoryDisplay();
 }
 
 physicsCatogeryBtn.onclick = () => {
@@ -120,7 +113,7 @@ physicsCatogeryBtn.onclick = () => {
     physicsCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'physics';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    updateCategoryDisplay();
 }
 
 computerCatogeryBtn.onclick = () => {
@@ -128,19 +121,19 @@ computerCatogeryBtn.onclick = () => {
     computerCatogeryBtn.classList.add('active');
     continueBtn.classList.add('active');
     selectedCategory = 'computer';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    updateCategoryDisplay();
 }
 
 rapidCatogeryBtn.onclick = () => {
     clearCatogeryActiveBtn();
     rapidCatogeryBtn.classList.add('rapid-active');
     continueBtn.classList.add('rapid-active');
-    selectedCategory = 'rapid';
-    updateCategoryDisplay();  // Update the displayed category in the h1 tag
+    selectedCategory = 'random';
+    updateCategoryDisplay();
 }
 
 
-function clearCatogeryActiveBtn(){
+function clearCatogeryActiveBtn() {
     scienceCatogeryBtn.classList.remove('active');
     mathsCatogeryBtn.classList.remove('active');
     englishCatogeryBtn.classList.remove('active');
@@ -167,13 +160,13 @@ const nextBtn = document.querySelector('.next-btn');
 nextBtn.onclick = () => {
     if (questionCount < quizQuestions.length - 1) {
         questionCount++;
-        showQuestions(questionCount, quizQuestions);  // Display the next question
-        questionNumb++;  // Increment the question number
-        questionCounter(questionNumb);  // Update the question counter
-        nextBtn.classList.remove('active');  // Hide the "Next" button until a question is answered
+        showQuestions(questionCount, quizQuestions);
+        questionNumb++;
+        questionCounter(questionNumb);
+        nextBtn.classList.remove('active');
     } else {
         nextBtn.classList.remove('active');
-        showResultBox();  // Show the results when all questions are answered
+        showResultBox();
     }
 }
 
@@ -196,7 +189,7 @@ function showQuestions(index, quizQuestions) {
         optionTag += `<div class="option"><span>${option}</span></div>`;
     });
 
-    optionList.innerHTML = optionTag;  // Update only the options, minimizing DOM operations
+    optionList.innerHTML = optionTag;
 
     const option = document.querySelectorAll('.option');
     option.forEach(opt => {
@@ -208,23 +201,23 @@ function showQuestions(index, quizQuestions) {
 
 function optionSelected(answer, quizQuestions, index) {
     let userAnswer = answer.textContent;
-    let correctAnswer = quizQuestions[index].answer;  // Use the passed quizQuestions and index
+    let correctAnswer = quizQuestions[index].answer;
     let allOptions = optionList.children.length;
 
-    if(userAnswer == correctAnswer) {
+    if (userAnswer == correctAnswer) {
         answer.classList.add('correct');
         userScore += 1;
         headerScore();
     } else {
         answer.classList.add('incorrect');
-        for(let i = 0; i < allOptions; i++) {
-            if(optionList.children[i].textContent == correctAnswer) {
+        for (let i = 0; i < allOptions; i++) {
+            if (optionList.children[i].textContent == correctAnswer) {
                 optionList.children[i].setAttribute('class', 'option correct');
             }
         }
     }
 
-    for(let i = 0; i < allOptions; i++) {
+    for (let i = 0; i < allOptions; i++) {
         optionList.children[i].classList.add('disable');
     }
 
@@ -237,10 +230,10 @@ function getRandomQuestions(category) {
 
     if (!allQuestions || allQuestions.length === 0) {
         console.error(`No questions found for category: ${category}`);
-        return [];  // Return an empty array if no questions are found
+        return [];
     }
 
-    const numberOfQuestions = Math.min(noOfQuestions, allQuestions.length);  // Limit to 5 questions
+    const numberOfQuestions = Math.min(noOfQuestions, allQuestions.length);
     while (selectedQuestions.length < numberOfQuestions) {
         const randomIndex = Math.floor(Math.random() * allQuestions.length);
         const question = allQuestions[randomIndex];
@@ -252,46 +245,45 @@ function getRandomQuestions(category) {
     return selectedQuestions;
 }
 
-let quizQuestions = [];  // Define quizQuestions globally
+let quizQuestions = [];
 
 function startQuiz() {
-    quizQuestions = getRandomQuestions(selectedCategory);  // Assign random questions when starting the quiz
-    showQuestions(0, quizQuestions);  // Show the first question
-    questionCounter(1);  // Start with question 1
-    headerScore();  // Update the score header
+    quizQuestions = getRandomQuestions(selectedCategory);
+    showQuestions(0, quizQuestions);
+    questionCounter(1);
+    headerScore();
 }
 
-function questionCounter(index){
+function questionCounter(index) {
     const questionTotal = document.querySelector('.question-total');
-    questionTotal.textContent = `${index} of ${quizQuestions.length} Questions`;  // Correct
+    questionTotal.textContent = `${index} of ${quizQuestions.length} Questions`;
 }
 
-function headerScore(){
+function headerScore() {
     const headerScoreText = document.querySelector('.header-score');
-    // Use quizQuestions.length to get the total number of questions
     headerScoreText.textContent = `Score: ${userScore} / ${quizQuestions.length}`;
 }
 
-function showResultBox(){
+function showResultBox() {
     quizBox.classList.remove('active');
     resultBox.classList.add('active');
 
     const scoreText = document.querySelector('.score-text');
-    scoreText.textContent = `Score ${userScore} out of ${quizQuestions.length}`;  // Use quizQuestions.length instead of questions.length
+    scoreText.textContent = `Score ${userScore} out of ${quizQuestions.length}`;
 
     const circularProgress = document.querySelector('.circular-progress');
     const progressValue = document.querySelector('.progress-value');
     let progressStartValue = -1;
-    let progressEndValue = (userScore / quizQuestions.length) * 100;  // Use quizQuestions.length instead of questions.length
+    let progressEndValue = (userScore / quizQuestions.length) * 100;
     let speed = 10;
 
     let progress = setInterval(() => {
         progressStartValue++;
-        
+
         progressValue.textContent = `${progressStartValue}%`;
         circularProgress.style.background = `conic-gradient(#2ba0ee ${progressStartValue * 3.6}deg, rgba(255, 255, 255, 0.1) 0deg)`;
-        
-        if(progressStartValue == progressEndValue){
+
+        if (progressStartValue == progressEndValue) {
             clearInterval(progress);
         }
     }, speed);

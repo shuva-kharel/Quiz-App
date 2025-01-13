@@ -1881,7 +1881,7 @@ let questions = {
             ]
         }
     ],
-    rapid: [
+    random: [
         {
             "question": "What is the capital of India?",
             "answer": "New Delhi",
