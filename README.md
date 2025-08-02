@@ -73,7 +73,3 @@ MIT License – see the [LICENSE](LICENSE) file for details.
 ## 👨‍💻 Author
 
 - **Shuva Kharel** – [GitHub](https://github.com/shuva-kharel)
-
-```
-
-```
