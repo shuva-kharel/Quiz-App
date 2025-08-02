@@ -17,11 +17,10 @@ Test your knowledge across various topics with instant feedback and a sleek UI. 
 ## 🚀 How to Run
 
 1. **Download or Clone the Repository**
+
    ```bash
    git clone https://github.com/shuva-kharel/Quiz-App
    ```
-
-````
 
 2. **Navigate to the Project Folder**
 
@@ -36,15 +35,15 @@ Test your knowledge across various topics with instant feedback and a sleek UI. 
    open index.html
    ```
 
-   *On Windows, use `start index.html` instead.*
+   _On Windows, use `start index.html` instead._
 
 ---
 
 ## 🛠 Built With
 
-* **HTML** – Structure and content
-* **CSS** – Styling and layout
-* **Vanilla JavaScript** – Logic and interactivity
+- **HTML** – Structure and content
+- **CSS** – Styling and layout
+- **Vanilla JavaScript** – Logic and interactivity
 
 ---
 
@@ -52,10 +51,10 @@ Test your knowledge across various topics with instant feedback and a sleek UI. 
 
 Works smoothly on modern browsers:
 
-* Google Chrome
-* Mozilla Firefox
-* Microsoft Edge
-* Safari
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
 
 ---
 
@@ -73,5 +72,8 @@ MIT License – see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
-* **Shuva Kharel** – [GitHub](https://github.com/shuva-kharel)
-````
+- **Shuva Kharel** – [GitHub](https://github.com/shuva-kharel)
+
+```
+
+```
