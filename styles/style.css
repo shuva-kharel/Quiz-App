@@ -110,7 +110,7 @@ body {
 /* ========== MAIN CONTENT STYLES ========== */
 .main {
   min-height: 100vh;
-  background: url("../asserts/background.jpeg") no-repeat center/cover;
+  background: url("/asserts/background.jpeg") no-repeat center/cover;
   pointer-events: auto;
   transition: var(--transition);
 }
